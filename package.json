@@ -1,0 +1,37 @@
+{
+  "name": "smte",
+  "version": "0.0.5",
+  "description": "Real time monitoring system to increase response to elders' emergencies",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenjaminMonge/SMTE.git"
+  },
+  "author": "Benjamín Monge",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BenjaminMonge/SMTE/issues"
+  },
+  "homepage": "https://github.com/BenjaminMonge/SMTE#readme",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-resource": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "bcryptjs": "^2.3.0",
+    "bluebird": "^3.4.6",
+    "body-parser": "^1.15.2",
+    "bookshelf": "^0.10.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "knex": "^0.12.6",
+    "mysql": "^2.11.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport.socketio": "^3.7.0",
+    "socket.io": "^1.5.1"
+  }
+}

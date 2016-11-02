@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Monitoreo">
+  <head>
+    <meta charset="utf-8">
+    <title>Monitoreo en tiempo real</title>
+  </head>
+  <body>
+    <div ng-view></div>
+    <script src="/socket.io/socket.io.js"></script>
+    <!--Resources for the index.html-->
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="node_modules/angular-route/angular-route.js"></script>
+    <script src="node_modules/angular-resource/angular-resource.js"></script>
+    <!--Angular controllers for all the operations-->
+    <script src="app/routes.js"></script>
+    <script src="app/controllers/home.js"></script>
+    <script src="app/controllers/dashboard.js"></script>
+    <script src="app/controllers/patient.js"></script>
+    <script src="app/controllers/search.js"></script>
+    <!--No services implemented yet-->
+    <script src="app/services/Session.js"></script>
+    <script src="app/services/Auth.js"></script>
+    <script src="app/services/User.js"></script>
+    <script src="app/services/Change.js"></script>
+  </body>
+</html>
