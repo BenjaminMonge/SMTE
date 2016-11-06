@@ -8,12 +8,16 @@ exports.up = function(knex, Promise) {
      table.string('password');
      table.string('fullname')
      table.date('joinDate');
-   }),
-
-   knex.schema.createTableIfNotExists('patients', function(table) {
+   }).createTableIfNotExists('patients', function(table) {
      table.string('deviceid').primary();
      table.string('fullname');
      table.string('sosphone');
+     table.string('address');
+   }).createTableIfNotExists('patients_users', function(table) {
+     table.increments();
+     table.string('user_username').references('users.username');
+     table.string('patient_deviceid').references('patients.deviceid');
+     table.unique(['user_username', 'patient_deviceid']);
    })
 
  ]);
@@ -22,6 +26,7 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return Promise.all([
    knex.schema.dropTable('users'),
-   knex.schema.dropTable('patients')
+   knex.schema.dropTable('patients'),
+   knex.schema.dropTable('carers')
  ]);
 };

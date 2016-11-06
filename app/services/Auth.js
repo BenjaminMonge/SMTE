@@ -57,7 +57,7 @@ angular.module('Monitoreo')
 
 
 
-      /*removeUser: function(username, password, callback) {
+      removeUser: function(username, password, callback) {
         var cb = callback || angular.noop
         User.delete({
           username: email,
@@ -68,7 +68,7 @@ angular.module('Monitoreo')
         }, function(err) {
             return cb(err.data);
         })
-      }*/
+      }
 
     }
 

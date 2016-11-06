@@ -1,16 +1,16 @@
 angular.module('Monitoreo')
   .controller('HomeController',
   function ($scope, Auth, User, $location) {
-    $scope.alert= {'session': 'You must create an account'}
+
+    $scope.alert= {'session': 'Debes crear una cuenta'}
     //All the angular stuff
     $scope.signup = function () {
       var client = angular.toJson($scope.member)
       User.save(client, function(user) {
-        console.log(user);
         $scope.member = {}
-        $scope.alert.session = 'Now you may login'
+        $location.path('/dashboard')
       }, function (err) {
-          $scope.alert.session = err.data
+          $scope.alert.session = "Error"
           $scope.member = {}
       })
     }
@@ -21,9 +21,9 @@ angular.module('Monitoreo')
         'password': $scope.credentials.password
       }, function (username, err) {
         if(!err){
-          $location.path('/dashboard/')
+          $location.path('/dashboard')
         } else {
-          console.log(err);
+          $scope.alert.session = 'Credenciales incorrectas'
         }
       });
     }

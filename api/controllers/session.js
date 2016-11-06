@@ -3,15 +3,15 @@ const passport = require('passport')
 
 module.exports.session = (req, res) => {
   var found = req.user
-  res.json({'username':found.username, 'email': found.email})
+  res.json({'username':found.username, 'email': found.email, 'fullname': found.fullname, 'joinDate': found.joinDate})
 }
 
 module.exports.logout = (req, res)=>{
   if(req.user) {
     req.logout();
-    res.send(200);
+    res.status(200).send();
   } else {
-    res.send(400, "Not logged in");
+    res.status(400).send("Not logged in");
   }
 }
 
