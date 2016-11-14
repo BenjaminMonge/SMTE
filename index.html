@@ -11,113 +11,20 @@
     <script src="node_modules/angular/angular.js"></script>
     <script src="node_modules/angular-route/angular-route.js"></script>
     <script src="node_modules/angular-resource/angular-resource.js"></script>
+    <script src="node_modules/angular-socket-io/socket.js"></script>
     <!--Angular controllers for all the operations-->
     <script src="app/routes.js"></script>
     <script src="app/controllers/home.js"></script>
     <script src="app/controllers/dashboard.js"></script>
     <script src="app/controllers/patient.js"></script>
     <script src="app/controllers/search.js"></script>
-    <!--No services implemented yet-->
+    <!--Services-->
     <script src="app/services/Session.js"></script>
     <script src="app/services/Auth.js"></script>
     <script src="app/services/User.js"></script>
     <script src="app/services/Change.js"></script>
+    <script src="app/services/Patient.js"></script>
+    <script src="node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
   </body>
 </html>
-
-<!--This alternative is a chat, just an test for the working authentication-->
-<!--
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Socket demo</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-    </style>
-  </head>
-  <body>
-    <div class="login">
-  <div class="loginform-in">
-  <h1>User Login</h1>
-  <div class="err" id="add_err"></div>
-  <fieldset>
-    <form action="./" method="post">
-      <ul>
-        <li> <label for="name">Username </label>
-        <input type="text" size="30"  name="name" id="name" placeholder="username" /></li>
-        <li> <label for="name">Password</label>
-        <input type="password" size="30"  name="word" id="word" placeholder="password" /></li>
-        <li> <label></label>
-        <input type="submit" id="login" name="login" value="Login" class="loginbutton" ></li>
-      </ul>
-           </form>
-  </fieldset>
-  </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-      //Ajax login
-  $(document).ready(function(){
-  	$("#add_err").css('display', 'none', 'important');
-  	 $("#login").click(function(){
-  		  username=$("#name").val();
-  		  password=$("#word").val();
-  		  $.ajax({
-  		   type: "POST",
-  		   url: "/auth/session",
-  			data: {"username": username, "password": password},
-  		   success: function(html){
-  			if(html=='true')    {
-  			 //$("#add_err").html("right username or password");
-  			}
-  			else    {
-  			$("#add_err").css('display', 'inline', 'important');
-  			 $("#add_err").html("<a href='/'>Start chatting</a>");
-  			}
-  		   },
-  		   beforeSend:function()
-  		   {
-  			$("#add_err").css('display', 'inline', 'important');
-  			$("#add_err").html("<img src='images/ajax-loader.gif' /> Loading...")
-  		   }
-  		  });
-  		return false;
-  	});
-  });
-
-  var socket = io();
-
-  $('form').submit(function(){
-    socket.emit('chat message', $('#m').val());
-    $('#m').val('');
-    return false;
-  });
-
-  socket.on('chat message', (msg) => {
-    $('#messages').append($('<li>').text(msg))
-  });
-
-    </script>
-
-  </body>
-</html>
-
--->

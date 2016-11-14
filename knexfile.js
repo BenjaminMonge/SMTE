@@ -2,7 +2,7 @@
 
 module.exports = {
 
-  development: {
+  development: {    //Cambia los datos de la conexion
     client: 'mysql',
     connection: {
       database: 'monitor',
