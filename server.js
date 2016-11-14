@@ -66,6 +66,7 @@ app.get('/', (req, res)=>{
 app.post('/arduino/', (req, res)=>{
   res.send('thanks for submitting')
   //Aqui es donde debes de verificar lo que viene en la request
+  const room = 'stream:'+req.body.id    //el id que mandes con el arduino, que sera el mismo deviceid del paciente que crees en la base de datos
   info = {bpm: "59", state: "caminando"}  //En este debes poner el bpm que viene en la request
 
   io.to(room).emit('bpm', info)           //Al recibir los datos del arduino por post request los emite en el sitio del paciente*/
