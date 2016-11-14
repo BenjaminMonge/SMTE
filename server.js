@@ -8,7 +8,7 @@ const io = require('socket.io')(http);
 const cookieParser = require('cookie-parser');
 const passportSocketIo = require('passport.socketio');
 const mariaStore = require('express-mysql-session')(session);
-var sessionStore = new mariaStore({host: 'localhost', port: 3306, user: 'benjamin', password: '@Dank.2', database: 'monitor'})
+var sessionStore = new mariaStore({host: 'localhost', port: 3306, user: 'benjamin', password: '@Dank.2', database: 'monitor'})  //Cambialo a tus datos de conexion, debes de crear la base primero
 //End of dependencies, we define the resources folders that the front end will request for frameworks and other stuff
 app.use('/app', express.static(__dirname + '/app'));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
@@ -24,7 +24,7 @@ app.use(session({       //Defining passportJS session that will be used to verif
   store: sessionStore,
   secret: 'bushdid911',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: { maxAge: 10*60*1000, secure: false } // 10 min
 }))
 
@@ -54,10 +54,6 @@ io.on('connection', (socket)=>{  //Conecta por medio de socket al usuario
     socket.leave(toLeave);
   })
 
-
-    socket.on('dashboard', (patientlist)=>{
-
-    })
 })
 
 
@@ -67,14 +63,12 @@ app.get('/', (req, res)=>{
 });
 
 //Routing arduino data to sockets
-app.get('/arduino/:id', (req, res)=>{
+app.post('/arduino/', (req, res)=>{
   res.send('thanks for submitting')
-  const room = 'stream:'+req.params.id
-  var randint = Math.floor(Math.random() * (70 - 50 + 1)) + 50
-  var randst = Math.floor(Math.random() * (2 + 1))
-  var states = ['Caminando', 'Estable', 'Caida']
-  info = {bpm: randint, state: states[randst]}
-  io.to(room).emit('bpm', info) //Al recibir los datos del arduino por post request los emite en el sitio del paciente*/
+  //Aqui es donde debes de verificar lo que viene en la request
+  info = {bpm: "59", state: "caminando"}  //En este debes poner el bpm que viene en la request
+
+  io.to(room).emit('bpm', info)           //Al recibir los datos del arduino por post request los emite en el sitio del paciente*/
 })
 
 

@@ -56,8 +56,9 @@ module.exports.update = (req, res)=>{
 }
 
 module.exports.delete = (req, res)=>{
+  var userkey = req.params.username
   req.logout();
-  User.forge({username: req.params.username}).destroy().then((model)=>{
+  User.forge({username: userkey}).destroy().then((model)=>{
     console.log('deleted');
     res.status(200).send()
   }).catch((err)=>{

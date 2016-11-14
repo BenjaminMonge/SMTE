@@ -21,6 +21,7 @@ module.exports.login = (req, res, next) => {
     if (error) { return res.status(400).json(error) }
     else {
       req.logIn(user, (err) => {
+        console.log(req.user);
         if (err) { return res.send(err)}
         else {
           res.json({'username': user.username, 'email': user.email})
