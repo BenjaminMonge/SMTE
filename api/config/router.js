@@ -1,5 +1,4 @@
 //Dependencies
-const bodyParser = require('body-parser')
 const auth = require('../config/auth')
 const sessionCtrl = require('../controllers/session');
 const userCtrl = require('../controllers/user');
@@ -7,8 +6,6 @@ const patientCtrl = require('../controllers/patient');
 //Router
 
 module.exports = (app) => {
-  app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({ extended: true }))
   //Routes for authentication and session maintaining
   app.get('/api/sessions', auth.access, sessionCtrl.session)
   app.post('/api/sessions', sessionCtrl.login)
