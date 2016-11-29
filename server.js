@@ -1,6 +1,7 @@
 //Stating all the dependencies of the application, mainly middlewares
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser')
 const http = require('http').Server(app);
 const passport = require('passport');
 const session = require('express-session');
@@ -56,6 +57,8 @@ io.on('connection', (socket)=>{  //Conecta por medio de socket al usuario
 
 })
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 //Serving the index
 app.get('/', (req, res)=>{
