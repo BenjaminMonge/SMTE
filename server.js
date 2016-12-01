@@ -10,6 +10,9 @@ const cookieParser = require('cookie-parser');
 const passportSocketIo = require('passport.socketio');
 const mariaStore = require('express-mysql-session')(session);
 var sessionStore = new mariaStore({host: 'localhost', port: 3306, user: 'benjamin', password: '@Dank.2', database: 'monitor'})  //Cambialo a tus datos de conexion, debes de crear la base primero
+//Twilio configuration to send sms
+var twilio = require('twilio')('ACf44670cb2fbae6d5bc2b1a71fcc96cf4', 'dd5b6700e26166fb8f85d1438cf1b2fa');
+
 //End of dependencies, we define the resources folders that the front end will request for frameworks and other stuff
 app.use('/app', express.static(__dirname + '/app'));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
@@ -26,7 +29,7 @@ app.use(session({       //Defining passportJS session that will be used to verif
   secret: 'bushdid911',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 10*60*1000, secure: false } // 10 min
+  cookie: { maxAge: 60*60*1000, secure: false } // 60 min
 }))
 
 io.use(passportSocketIo.authorize({ //Sharing the PassportJS session to SocketIO so the sockets will be authenticated
@@ -67,10 +70,26 @@ app.get('/', (req, res)=>{
 
 //Routing arduino data to sockets
 app.post('/arduino/', (req, res)=>{
-  res.send('thanks for submitting')
-  //Aqui es donde debes de verificar lo que viene en la request
-  const room = 'stream:'+req.body.id    //el id que mandes con el arduino, que sera el mismo deviceid del paciente que crees en la base de datos
-  info = {bpm: "59", state: "caminando"}  //En este debes poner el bpm que viene en la request
+
+  const room = 'stream:1'//el id que mandes con el arduino, que sera el mismo deviceid del paciente que crees en la base de datos
+  info = {bpm: req.body.BPM, state: req.body.ESTADO}  //En este debes poner el bpm que viene en la request
+  /*console.log(req.body.BPM);
+  console.log(req.body.ESTADO);*/
+  console.log(info);
+
+  if(info.state==='¡Alerta!'){
+    console.log("About to send sms");
+    twilio.sendMessage({
+        to:'+50363004746',
+        from: '+15713897109',
+        body: 'He sufrido una caida y necesito ayuda'
+    }, function(err, responseData) {
+        if (!err) {
+            console.log(responseData.from);
+            console.log(responseData.body);
+        }
+    });
+  }
 
   io.to(room).emit('bpm', info)           //Al recibir los datos del arduino por post request los emite en el sitio del paciente*/
 })
