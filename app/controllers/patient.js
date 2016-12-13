@@ -30,7 +30,7 @@ angular.module('Monitoreo')
     //
     //Get data first
     $scope.patient = {}
-    $scope.vitals = {'bpm': 60, 'state': 'walking'};
+    $scope.vitals = {'bpm': 60}//, 'state': 'walking'};
     Patient.get({id: $routeParams.patient} ,function (patient) {
       $scope.patient = patient
       if(patient.isWatching){$scope.care="Abandonar"}
@@ -42,9 +42,10 @@ angular.module('Monitoreo')
     socket.emit('patient', streamURL)
     //Listening for incomming data from the connected socket
     socket.on('bpm', function (data) {
+      console.log('got data')
       if($scope.data[0].length===7) {$scope.data[0].shift()}
       $scope.data[0].push(data.bpm)
-      $scope.vitals = data
+      $scope.vitals = data;
     })
     //Listening for destroy in order to log out of the room
     $scope.$on("$destroy", function() {
